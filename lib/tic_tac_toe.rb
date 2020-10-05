@@ -54,7 +54,7 @@ def turn
 end
 def turn_count
   count = 0
-  @board each do |location|
+  @board.each do |location|
     count += 1 if location == "X" || location == "O"
   end
   count
