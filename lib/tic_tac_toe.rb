@@ -25,90 +25,88 @@ end
 def move(index, value)
   @board[index] = value
   @board
-end 
+end
 def position_taken?(index)
   !(@board[index].nil? || @board[index] == " ")
 end
 def valid_move?(index)
-  if index.between?(0,8) 
+  if index.between?(0,8)
     if position_taken?(index)
-      return false 
-    else 
-      return true 
-    end 
-  else 
-    return false 
-  end 
-end 
-def turn 
+      return false
+    else
+      return true
+    end
+  else
+    return false
+  end
+end
+def turn
   puts "Please enter 1-9:"
-  input = gets.strip 
+  input = gets.strip
   index = input_to_index?(input)
   if valid_move?(index)
     value = current_player
     move(index, value)
     display_board
-  else 
-    turn 
-  end 
-end 
+  else
+    turn
+  end
+end
 def turn_count
-  count = 0 
+  count = 0
   @board each do |location|
     count += 1 if location == "X" || location == "O"
-  end 
-  count 
-end 
+  end
+  count
+end
 def current_player
   tally = turn_count
   tally % 2 == 0 ? "X" : "O"
-end 
+end
 def won?
   WIN_COMBINATIONS.each do |el|
     location1 = @board[el[0]]
     location2 = @board[el[1]]
     location3 = @board[el[2]]
     if (location1 == "X" && location2 == "X" && location3 == "X") || (location1 == "O" && location2 == "O" && location3 == "O")
-      return el 
-    end 
-  end 
-  return false 
-end 
+      return el
+    end
+  end
+  return false
+end
 def full?
   @board.all? do |el|
     position_taken?(@board.index(el))
-  end 
-end 
+  end
+end
 def draw?
   result_won = won?
-  if full? && result_won == false 
-    true 
-  else 
-    false 
-  end 
-end 
+  if full? && result_won == false
+    true
+  else
+    false
+  end
+end
 def over?
-  won? || draw? ? true : false 
-end 
-def winner 
+  won? || draw? ? true : false
+end
+def winner
   if won?
     arr = won?
     winning = @board[arr[0]]
-    return winning 
-  else 
-    return nil 
-  end 
-end 
-def play 
+    return winning
+  else
+    return nil
+  end
+end
+def play
   until over?
-    turn 
-  end 
+    turn
+  end
   if won?
     puts "Congratulations #{winner}!"
   elsif draw?
     puts "Cat's Game!"
-  end 
+  end
+end
 end 
-end 
-    
-    
